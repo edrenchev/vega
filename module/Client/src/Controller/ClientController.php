@@ -62,7 +62,7 @@ class ClientController extends AbstractActionController {
 			$form->setData($sessionSearchClientFormData);
 			$clients = $this->entityManager->getRepository(Client::class)->findClientsBySearchData($sessionSearchClientFormData);
 		} else {
-			$clients = $this->entityManager->getRepository(Client::class)->getClientsOrderByJoinDate();
+			$clients = $this->entityManager->getRepository(Client::class)->getClientsOrderByName();
 		}
 
 		$paginator = new ZendPaginator(new PageAdapter(new ORMPaginator($clients)));

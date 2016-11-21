@@ -70,6 +70,21 @@ class ClientRepository extends EntityRepository {
 		return $clients;
 	}
 
+	public function getClientsOrderByName() {
+		$entityManager = $this->getEntityManager();
+
+		$queryBuilder = $entityManager->createQueryBuilder();
+
+		$queryBuilder->select('c')
+			->from(Client::class, 'c')
+			->addOrderBy('c.firstName', 'ASC')
+			->addOrderBy('c.lastName', 'ASC');
+
+		$clients = $queryBuilder->getQuery();
+
+		return $clients;
+	}
+
 	public function getClientsByPayDay($day) {
 		$entityManager = $this->getEntityManager();
 

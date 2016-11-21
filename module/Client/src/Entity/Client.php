@@ -297,6 +297,7 @@ class Client {
      * @return mixed
      */
     public function getJoinDateBGFormat() {
+    	if($this->joinDate == '0000-00-00') return '';
         return date('d.m.Y', strtotime($this->joinDate));
     }
 

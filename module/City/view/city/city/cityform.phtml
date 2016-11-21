@@ -1,0 +1,28 @@
+<?php
+
+$form->get('name')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'Дупница'
+]);
+
+$submit = $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+$submit->setValue($this->submitLabel);
+$form->prepare();
+
+?>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('name')); ?>
+            <?= $this->formElement($form->get('name')); ?>
+            <?= $this->formElementErrors($form->get('name')); ?>
+        </div>
+
+        <?= $this->formElement($submit); ?>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>

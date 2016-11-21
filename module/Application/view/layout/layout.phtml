@@ -1,0 +1,154 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex">
+
+    <?= $this->headTitle('Vega')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+    <?= $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+    ?>
+
+    <!-- Le styles -->
+    <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'])
+        ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui-1.9.2.custom.min.css'))
+        ->prependStylesheet($this->basePath('css/jquery-ui-timepicker-addon.css'))
+    ?>
+
+    <!-- Scripts -->
+    <?= $this->headScript()
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/jquery-ui-timepicker-addon.js'))
+        ->prependFile($this->basePath('js/jquery-ui-1.9.2.custom.min.js'))
+        ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+    ?>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Navigation bar -->
+            <?php
+            // Check if the activeMenuItemId passed to layout view model
+            // and if so, use it for setting active navbar item.
+            if (isset($activeMenuItemId)) {
+                $this->mainMenu()->setActiveItemId($activeMenuItemId);
+            }
+            // Render the navbar
+            echo $this->mainMenu()->render();
+            ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Breadcrumbs -->
+            <?= $this->pageBreadcrumbs()->render(); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <!-- Page content placeholder -->
+            <?= $this->content; ?>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p>&copy; 2005 - <?= date('Y') ?> by <a href="http://drenchev.com" title="Drenchev.com">Drenchev.com</a>. All rights reserved.</p>
+    </footer>
+</div>
+<?= $this->inlineScript() ?>
+<script>
+    Number.prototype.padLeft = function(length, padstring){
+        var result = this.toString();
+        while (result.length<length) {
+            result = padstring + result;
+        }
+        return result;
+    };
+    Date.prototype.toISODate = function(){
+        return [this.getFullYear().padLeft(4, '0'), (this.getMonth()+1).padLeft(2, '0'), this.getDate().padLeft(2, '0')].join('-');
+    };
+
+    Date.prototype.toISODateTime = function(){
+        return this.toISODate() + ' ' + [this.getHours().padLeft(2, '0'), this.getMinutes().padLeft(2, '0'), this.getSeconds().padLeft(2, '0')].join(':');
+    };
+    if (typeof Date.parseISO=='undefined') {
+        Date.parseISO = function(val){
+
+            var toint = function(string){
+                string = string.replace(/^0*/, '');
+                return parseInt(string);
+            };
+
+            if (val==undefined || val=='' || val=='0000-00-00' || val=='0000-00-00 00:00:00') return null;
+            var match = val.match(/^(\d{4})-(\d{2})-(\d{2})( (\d{2}):(\d{2}):(\d{2}))?$/);
+            if(!match) return null;
+            if(match[4]){
+                return new Date(toint(match[1]), toint(match[2])-1, toint(match[3]), match[5], match[6], match[7]);
+            } else {
+                return new Date(toint(match[1]), toint(match[2])-1, toint(match[3]));
+            }
+        };
+    }
+    var datepickerDefaults = {
+        dateFormat:'dd.mm.yy',
+        changeYear:true,
+        changeMonth:true,
+        yearRange:'1900:+10',
+        showTimepicker:false
+    };
+    $('input[data-datepicker]').each(function(){
+        var obj=$(this);
+        var data = $(this).attr("data-datepicker");
+        data = (typeof(data)!='undefined' && data!="") ? JSON.parse(data) : {};
+
+        var options = {};
+        $.extend(options, datepickerDefaults, data);
+
+        var fld2 = $('<input />').attr('name', obj.attr('name')).insertAfter(obj).hide();
+        obj.attr('name', null);
+
+        var val = obj.val();
+
+        fld2.val(val);
+
+        if (val) {
+            val = Date.parseISO(val);
+            obj.val('');
+        }
+        var dtp = obj.datetimepicker(options);
+        if (val) {
+            dtp.datetimepicker('setDate', val);
+        }
+
+        var dateFormat = dtp.datetimepicker('option', 'dateFormat');
+        var timeFormat = dtp.datetimepicker('option', 'timeFormat');
+        var showTimepicker = dtp.datetimepicker('option', 'showTimepicker');
+
+        obj.on('change',function(e){
+            var v;
+            try{
+                v = $.datepicker.parseDateTime(dateFormat, timeFormat, this.value, {}, {});
+                v = showTimepicker ? v.toISODateTime() : v.toISODate();
+
+            } catch (e) {
+                v = this.value;
+            }
+            fld2.val(v);
+        });
+
+    });
+
+    $('*[data-action="delete"]').on('click', function(event){
+        return confirm('Please confirm delete!');
+    });
+</script>
+</body>
+</html>

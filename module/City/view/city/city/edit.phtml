@@ -1,0 +1,16 @@
+<?php
+$this->headTitle('Редактирай град');
+$this->mainMenu()->setActiveItemId('cities');
+$this->pageBreadcrumbs()->setItems([
+    'Градове'=>$this->url('cities'),
+    'Редактирай град'=>$this->url('cities', ['action'=>'edit'])
+]);
+$form = $this->form;
+
+echo '<h1>Редактирай град</h1>';
+
+echo $this->partial('city/city/cityform', [
+    'form' => $form,
+    'submitLabel' => 'Запази',
+]);
+

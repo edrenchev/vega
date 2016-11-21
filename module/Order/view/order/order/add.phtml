@@ -1,0 +1,17 @@
+<?php
+$this->headTitle('Добави плащане');
+$this->mainMenu()->setActiveItemId('orders');
+$this->pageBreadcrumbs()->setItems([
+    'Плащания'=>$this->url('orders'),
+    'Добави плащане'=>$this->url('orders', ['action'=>'add'])
+]);
+$form = $this->form;
+
+echo '<h1>Добави плащане</h1>';
+
+echo $this->partial('order/order/orderform', [
+    'form' => $form,
+    'submitLabel' => 'Създай',
+	'isEdit' => false,
+]);
+

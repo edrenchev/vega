@@ -1,0 +1,50 @@
+<?php
+
+$form->get('name')->setAttributes([
+	'class' => 'form-control',
+	'placeholder' => 'Крайници'
+]);
+
+
+$searchSubmit = $form->get('searchSubmit')->setAttributes(['class' => 'btn btn-primary']);
+$clearSubmit = $form->get('clearSubmit')->setAttributes(['class' => 'btn btn-primary']);
+$form->prepare();
+
+?>
+
+<div class="row">
+	<div class="col-md-6">
+		<div id="searchForm">
+
+			<h1>Търсене</h1>
+
+			<?= $this->form()->openTag($form); ?>
+
+			<div class="form-group">
+				<?= $this->formLabel($form->get('name')); ?>
+				<?= $this->formElement($form->get('name')); ?>
+				<?= $this->formElementErrors($form->get('name')); ?>
+			</div>
+
+			<?= $this->formElement($searchSubmit); ?>
+			<?= $this->formElement($clearSubmit); ?>
+
+			<?= $this->form()->closeTag(); ?>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	/*jQuery time*/
+	$(document).ready(function () {
+		$("#searchForm h1").click(function () {
+			//slide up all the link lists
+			$("#searchForm form").slideUp();
+			//slide down the link list below the h3 clicked - only if its closed
+			if (!$(this).next().is(":visible")) {
+				$(this).next().slideDown();
+			}
+		})
+	})
+</script>

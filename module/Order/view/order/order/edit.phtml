@@ -1,0 +1,17 @@
+<?php
+$this->headTitle('Редактирай плащание');
+$this->mainMenu()->setActiveItemId('orders');
+$this->pageBreadcrumbs()->setItems([
+    'Плащания'=>$this->url('orders'),
+    'Редактирай плащание'=>$this->url('orders', ['action'=>'edit'])
+]);
+$form = $this->form;
+
+echo '<h1>Редактирай плащание</h1>';
+
+echo $this->partial('order/order/orderform', [
+    'form' => $form,
+    'submitLabel' => 'Запази',
+	'isEdit' => true,
+]);
+

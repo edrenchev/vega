@@ -1,0 +1,62 @@
+<?php
+$this->headTitle('Управление на градове');
+$this->mainMenu()->setActiveItemId('cities');
+$this->pageBreadcrumbs()->setItems([
+    'Градове' => $this->url('cities')
+]);
+
+$form = $this->form;
+echo $this->partial('city/city/searchform', [
+    'form' => $searchForm,
+]);
+
+?>
+
+<h1>Населени места</h1>
+
+<p>
+    <a class="btn btn-default" href="
+    <?= $this->url('cities', ['action' => 'add']); ?>">
+        Нов град
+    </a>
+</p>
+
+<table class="table table-striped">
+
+    <tr>
+        <th>ID</th>
+        <th>Име</th>
+        <th>Действия</th>
+    </tr>
+
+    <?php foreach ($this->paginator as $city): ?>
+
+        <tr>
+            <td><?= $this->escapeHtml($city->getId()); ?></td>
+            <td><?= $this->escapeHtml($city->getName()); ?></td>
+            <td>
+                <a class="btn btn-info" href="<?= $this->url('cities',
+                    ['action' => 'edit', 'id' => $city->getId()]); ?>">
+                    <span class="glyphicon glyphicon-pencil"></span> Редактирай
+                </a>
+                <a class="btn btn-danger" href="<?= $this->url('cities',
+                    ['action' => 'delete', 'id' => $city->getId()]); ?>">
+                    <span class="glyphicon glyphicon-remove"></span> Изтрий
+                </a>
+            </td>
+        </tr>
+
+    <?php endforeach; ?>
+
+</table>
+
+<?= $this->paginationControl(
+// The paginator object:
+    $this->paginator,
+    // The scrolling style:
+    'sliding',
+    // The partial to use to render the control:
+    'city/city/paginator',
+    // The route to link to when a user clicks a control link:
+    ['route' => 'cities']
+) ?>

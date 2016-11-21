@@ -1,0 +1,139 @@
+<?php
+
+$form->get('first_name')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'Иван'
+]);
+$form->get('middle_name')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'Иванов'
+]);
+$form->get('last_name')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'Иванов'
+]);
+$form->get('email')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'ivan@gmail.com'
+]);
+$form->get('phone')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'0887214253'
+]);
+$form->get('city_id')->setAttributes([
+    'class'=>'form-control',
+]);
+$form->get('address')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'ул. Иван Вазон N4'
+]);
+$form->get('mbps')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'20'
+]);
+$form->get('monthly_price')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'15.00'
+]);
+$form->get('payday')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'15'
+]);
+$form->get('status')->setAttributes([
+    'class'=>'form-control',
+]);
+$form->get('join_date')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'15.10.2016',
+    'data-datepicker' => '',
+]);
+
+
+$submit = $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
+$submit->setValue($this->submitLabel);
+
+$form->prepare();
+
+?>
+
+<div class="row">
+    <div class="col-md-6">
+        <?= $this->form()->openTag($form); ?>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('first_name')); ?>
+            <?= $this->formElement($form->get('first_name')); ?>
+            <?= $this->formElementErrors($form->get('first_name')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('middle_name')); ?>
+            <?= $this->formElement($form->get('middle_name')); ?>
+            <?= $this->formElementErrors($form->get('middle_name')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('last_name')); ?>
+            <?= $this->formElement($form->get('last_name')); ?>
+            <?= $this->formElementErrors($form->get('last_name')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('email')); ?>
+            <?= $this->formElement($form->get('email')); ?>
+            <?= $this->formElementErrors($form->get('email')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('phone')); ?>
+            <?= $this->formElement($form->get('phone')); ?>
+            <?= $this->formElementErrors($form->get('phone')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('city_id')); ?>
+            <?= $this->formElement($form->get('city_id')); ?>
+            <?= $this->formElementErrors($form->get('city_id')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('address')); ?>
+            <?= $this->formElement($form->get('address')); ?>
+            <?= $this->formElementErrors($form->get('address')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('mbps')); ?>
+            <?= $this->formElement($form->get('mbps')); ?>
+            <?= $this->formElementErrors($form->get('mbps')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('monthly_price')); ?>
+            <?= $this->formElement($form->get('monthly_price')); ?>
+            <?= $this->formElementErrors($form->get('monthly_price')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('payday')); ?>
+            <?= $this->formElement($form->get('payday')); ?>
+            <?= $this->formElementErrors($form->get('payday')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('status')); ?>
+            <?= $this->formElement($form->get('status')); ?>
+            <?= $this->formElementErrors($form->get('status')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('join_date')); ?>
+            <?= $this->formElement($form->get('join_date')); ?>
+            <?= $this->formElementErrors($form->get('join_date')); ?>
+        </div>
+
+        <?= $this->formElement($submit); ?>
+
+        <?= $this->form()->closeTag(); ?>
+    </div>
+</div>

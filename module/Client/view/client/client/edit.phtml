@@ -1,0 +1,16 @@
+<?php
+$this->headTitle('Редактирай клиент');
+$this->mainMenu()->setActiveItemId('clients');
+$this->pageBreadcrumbs()->setItems([
+    'Клиенти'=>$this->url('clients'),
+    'Редактирай клиент'=>$this->url('clients', ['action'=>'edit'])
+]);
+$form = $this->form;
+
+echo '<h1>Редактирай клиент</h1>';
+
+echo $this->partial('client/client/clientform', [
+    'form' => $form,
+    'submitLabel' => 'Запази',
+]);
+

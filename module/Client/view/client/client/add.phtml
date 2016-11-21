@@ -1,0 +1,16 @@
+<?php
+$this->headTitle('Добави клиент');
+$this->mainMenu()->setActiveItemId('clients');
+$this->pageBreadcrumbs()->setItems([
+    'Клиенти'=>$this->url('clients'),
+    'Добави клиент'=>$this->url('clients', ['action'=>'add'])
+]);
+$form = $this->form;
+
+echo '<h1>Добави клиент</h1>';
+
+echo $this->partial('client/client/clientform', [
+    'form' => $form,
+    'submitLabel' => 'Създай',
+]);
+

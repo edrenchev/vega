@@ -1,0 +1,44 @@
+<?php
+$this->headTitle('Управление на плащанията');
+$this->mainMenu()->setActiveItemId('orders');
+$this->pageBreadcrumbs()->setItems(['Плащания' => $this->url('orders')]);
+$form = $this->form;
+echo $this->partial('order/order/searchform', ['form' => $searchForm,]); ?><h1>Управление на плащанията</h1><p><a
+		class="btn btn-default" href="    <?= $this->url('orders', ['action' => 'add']); ?>"> Добави плащане </a></p>
+	<table class="table table-striped">
+		<tr>
+			<th>ID</th>
+			<th>Клиент</th>
+			<th>Mbps</th>
+			<th>Цена</th>
+			<th>Платил</th>
+			<th>Метод на плащане</th>
+			<th>Дата на плащане</th>
+			<th>Действия</th>
+		</tr> <?php foreach ($this->paginator as $order): ?>
+			<tr>
+				<td><?= $this->escapeHtml($order->getId()); ?></td>
+				<td><?= $this->escapeHtml($order->getClientId()->getFullName()); ?></td>
+				<td><?= $this->escapeHtml($order->getMbps()); ?></td>
+				<td><?= $this->escapeHtml($order->getPrice()); ?></td>
+				<td><?= $this->escapeHtml($order->getIsPayAsString($order->getIsPay())); ?></td>
+				<td><?= $this->escapeHtml($order->getPaymentMethodAsString($order->getPaymentMethod())); ?></td>
+				<td><?= $this->escapeHtml($order->getPayAtBGFormat()); ?></td>
+				<td><a class="btn btn-info"
+					   href="<?= $this->url('orders', ['action' => 'edit', 'id' => $order->getId()]); ?>">
+						<span class="glyphicon glyphicon-pencil"></span> Редактирай </a> <a class="btn btn-danger"
+																							data-action="delete"
+																							href="<?= $this->url('orders', ['action' => 'delete', 'id' => $order->getId()]); ?>">
+						<span class="glyphicon glyphicon-remove"></span> Изтрий </a></td>
+			</tr>    <?php endforeach; ?>
+	</table>
+<?= $this->paginationControl(
+// The paginator object:
+	$this->paginator,
+// The scrolling style:
+	'sliding',
+// The partial to use to render the control:
+	'client/client/paginator',
+// The route to link to when a user clicks a control link:
+	['route' => 'clients'])
+?>

@@ -1,0 +1,16 @@
+<?php
+$this->headTitle('Добави нов град');
+$this->mainMenu()->setActiveItemId('cities');
+$this->pageBreadcrumbs()->setItems([
+    'Градове'=>$this->url('cities'),
+    'Добави нов град'=>$this->url('cities', ['action'=>'add'])
+]);
+$form = $this->form;
+
+echo '<h1>Добави нов град</h1>';
+
+echo $this->partial('city/city/cityform', [
+    'form' => $form,
+    'submitLabel' => 'Създай',
+]);
+

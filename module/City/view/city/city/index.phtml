@@ -24,7 +24,6 @@ echo $this->partial('city/city/searchform', [
 <table class="table table-striped">
 
     <tr>
-        <th>ID</th>
         <th>Име</th>
         <th>Действия</th>
     </tr>
@@ -32,7 +31,6 @@ echo $this->partial('city/city/searchform', [
     <?php foreach ($this->paginator as $city): ?>
 
         <tr>
-            <td><?= $this->escapeHtml($city->getId()); ?></td>
             <td><?= $this->escapeHtml($city->getName()); ?></td>
             <td>
                 <a class="btn btn-info" href="<?= $this->url('cities',

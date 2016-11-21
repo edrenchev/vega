@@ -7,6 +7,7 @@ echo $this->partial('order/order/searchform', ['form' => $searchForm,]); ?><h1>�
 		class="btn btn-default" href="    <?= $this->url('orders', ['action' => 'add']); ?>"> Добави плащане </a></p>
 	<table class="table table-striped">
 		<tr>
+			<th>ID</th>
 			<th>Клиент</th>
 			<th>Mbps</th>
 			<th>Цена</th>
@@ -16,6 +17,7 @@ echo $this->partial('order/order/searchform', ['form' => $searchForm,]); ?><h1>�
 			<th>Действия</th>
 		</tr> <?php foreach ($this->paginator as $order): ?>
 			<tr>
+				<td><?= $this->escapeHtml($order->getId()); ?></td>
 				<td><?= $this->escapeHtml($order->getClientId()->getFullName()); ?></td>
 				<td><?= $this->escapeHtml($order->getMbps()); ?></td>
 				<td><?= $this->escapeHtml($order->getPrice()); ?></td>

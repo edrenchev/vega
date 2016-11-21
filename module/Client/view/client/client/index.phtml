@@ -53,7 +53,7 @@ echo $this->partial('client/client/searchform', [
                     ['action' => 'edit', 'id' => $client->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Редактирай
                 </a>
-                <a class="btn btn-danger" href="<?= $this->url('clients',
+                <a class="btn btn-danger" data-action="delete" href="<?= $this->url('clients',
                     ['action' => 'delete', 'id' => $client->getId()]); ?>">
                     <span class="glyphicon glyphicon-remove"></span> Изтрий
                 </a>

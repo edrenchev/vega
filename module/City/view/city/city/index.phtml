@@ -37,7 +37,7 @@ echo $this->partial('city/city/searchform', [
                     ['action' => 'edit', 'id' => $city->getId()]); ?>">
                     <span class="glyphicon glyphicon-pencil"></span> Редактирай
                 </a>
-                <a class="btn btn-danger" href="<?= $this->url('cities',
+                <a class="btn btn-danger" data-action="delete" href="<?= $this->url('cities',
                     ['action' => 'delete', 'id' => $city->getId()]); ?>">
                     <span class="glyphicon glyphicon-remove"></span> Изтрий
                 </a>

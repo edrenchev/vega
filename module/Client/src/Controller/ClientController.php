@@ -142,6 +142,7 @@ class ClientController extends AbstractActionController {
 				'monthly_price' => $client->getMonthlyPrice(),
 				'payday' => $client->getPayday(),
 				'join_date' => $client->getJoinDate(),
+				'notes' => $client->getNotes(),
 			];
 
 			$form->setData($data);

@@ -161,6 +161,17 @@ class ClientForm extends Form implements ObjectManagerAwareInterface {
             ],
         ]);
 
+		$this->add([
+			'type' => 'textarea',
+			'name' => 'notes',
+			'attributes' => [
+				'id' => 'notes'
+			],
+			'options' => [
+				'label' => 'Бележки',
+			],
+		]);
+
         $this->add([
             'type' => 'submit',
             'name' => 'submit',

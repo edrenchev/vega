@@ -84,6 +84,11 @@ class Client {
     protected $joinDate;
 
     /**
+     * @ORM\Column(name="notes")
+     */
+    protected $notes;
+
+    /**
      * @ORM\Column(name="created_at")
      */
     protected $createdAt;
@@ -301,6 +306,20 @@ class Client {
     public function setJoinDate($joinDate) {
         $this->joinDate = $joinDate;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getNotes() {
+		return $this->notes;
+	}
+
+	/**
+	 * @param mixed $notes
+	 */
+	public function setNotes($notes) {
+		$this->notes = $notes;
+	}
 
     /**
      * @return mixed

@@ -47,6 +47,10 @@ $form->get('join_date')->setAttributes([
     'placeholder'=>'15.10.2016',
     'data-datepicker' => '',
 ]);
+$form->get('notes')->setAttributes([
+    'class'=>'form-control',
+    'placeholder'=>'някаква бележка'
+]);
 
 
 $submit = $form->get('submit')->setAttributes(['class'=>'btn btn-primary']);
@@ -130,6 +134,12 @@ $form->prepare();
             <?= $this->formLabel($form->get('join_date')); ?>
             <?= $this->formElement($form->get('join_date')); ?>
             <?= $this->formElementErrors($form->get('join_date')); ?>
+        </div>
+
+        <div class="form-group">
+            <?= $this->formLabel($form->get('notes')); ?>
+            <?= $this->formElement($form->get('notes')); ?>
+            <?= $this->formElementErrors($form->get('notes')); ?>
         </div>
 
         <?= $this->formElement($submit); ?>

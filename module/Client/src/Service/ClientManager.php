@@ -41,6 +41,7 @@ class ClientManager {
         $client->setPayday($data['payday']);
         $client->setStatus($data['status']);
         $client->setJoinDate($data['join_date']);
+		$client->setNotes($data['notes']);
         $currentDate = date('Y-m-d H:i:s');
         $client->setCreatedAt($currentDate);
 
@@ -64,6 +65,7 @@ class ClientManager {
         $client->setPayday($data['payday']);
 		$client->setStatus($data['status']);
         $client->setJoinDate($data['join_date']);
+        $client->setNotes($data['notes']);
 
         $this->entityManager->flush();
     }

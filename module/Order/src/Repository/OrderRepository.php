@@ -51,4 +51,26 @@ class OrderRepository extends EntityRepository {
         $clients = $queryBuilder->getQuery();
         return $clients;
     }
+
+    public function isClientPay($clientId, $date) {
+		$date = new \DateTime($date);
+		$firstDayOfMonth = $date->modify('first day of this month')->format('Y-m-d');
+		$lastDayOfMonth = $date->modify('last day of this month')->format('Y-m-d');
+		$entityManager = $this->getEntityManager();
+		$queryBuilder = $entityManager->createQueryBuilder();
+		$queryBuilder->select('o')
+			->from(Order::class, 'o')
+			->where('o.clientId = :clientId AND o.paidAt >= :firstDayOfMonth AND o.paidAt <= :lastDayOfMonth')
+			->setParameters([
+				'clientId' => $clientId,
+				'firstDayOfMonth' => $firstDayOfMonth,
+				'lastDayOfMonth' => $lastDayOfMonth,
+			]);
+
+		$orders = $queryBuilder->getQuery()->getResult();
+
+		if(empty($orders)) return false;
+
+		return true;
+	}
 }

@@ -68,21 +68,28 @@ class OrderController extends AbstractActionController {
     public function addAction() {
         $form = new OrderForm($this->entityManager);
         $clientId = (int)$this->params()->fromQuery('client_id', 0);
+
         if ($clientId > 0) {
             $client = $this->entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
             $data = ['client_id' => $client->getId(), 'city_id' => $client->getCityId()->getId(), 'mbps' => $client->getMbps(), 'price' => $client->getMonthlyPrice(), 'is_pay' => Order::IS_PAY, 'payment_method' => Order::PAYMENT_METHOD_CASH, 'paid_at' => date('Y-m-d H:i:m'),];
             $form->setData($data);
         }
+
+		$res = [];
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
             $form->setData($data);
             if ($form->isValid()) {
                 $data = $form->getData();
-                $this->orderManager->addNewOrder($data);
-                return $this->redirect()->toRoute('orders');
+                $res = $this->orderManager->addNewOrder($data);
+
+				if(empty($res)) return $this->redirect()->toRoute('orders');
             }
         }
-        return new ViewModel(['form' => $form]);
+        return new ViewModel([
+        	'form' => $form,
+			'errors' => $res,
+		]);
     }
 
     public function editAction() {
@@ -92,11 +99,14 @@ class OrderController extends AbstractActionController {
             $this->getResponse()->setStatusCode(404);
             return;
         }
+
         $order = $this->entityManager->getRepository(Order::class)->findOneById($orderId);
         if ($order == null) {
             $this->getResponse()->setStatusCode(404);
             return;
         }
+
+		$res = [];
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
 			$data['client_id'] = $order->getClientId()->getId();
@@ -105,14 +115,19 @@ class OrderController extends AbstractActionController {
             $form->setData($data);
             if ($form->isValid()) {
                 $data = $form->getData();
-                $this->orderManager->updateOrder($order, $data);
-                return $this->redirect()->toRoute('orders');
+				$res = $this->orderManager->updateOrder($order, $data);
+
+				if(empty($res)) return $this->redirect()->toRoute('orders');
             }
         } else {
             $data = ['client_id' => $order->getClientId(), 'city_id' => $order->getCityId(), 'mbps' => $order->getMbps(), 'price' => $order->getPrice(), 'is_pay' => $order->getIsPay(), 'payment_method' => $order->getPaymentMethod(), 'paid_at' => $order->getPaidAt(), 'note' => $order->getNote(),];
             $form->setData($data);
         }
-        return new ViewModel(['form' => $form, 'order' => $order]);
+        return new ViewModel([
+        	'form' => $form,
+			'order' => $order,
+			'errors' => $res,
+		]);
     }
 
     public function deleteAction() {

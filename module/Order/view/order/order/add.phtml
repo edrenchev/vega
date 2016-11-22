@@ -9,9 +9,14 @@ $form = $this->form;
 
 echo '<h1>Добави плащане</h1>';
 
+if(!empty($errors)) {
+	echo '<p class="bg-danger" style="padding: 15px;">'.implode('<br/>', $errors).'</p>';
+}
+
 echo $this->partial('order/order/orderform', [
     'form' => $form,
     'submitLabel' => 'Създай',
 	'isEdit' => false,
+	'typeOrderForm' => 'single',
 ]);
 

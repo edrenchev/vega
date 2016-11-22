@@ -37,6 +37,7 @@ class CityController extends AbstractActionController {
 
 		$sessionSearchCityFormData = $this->cityManager->getSearchDataFromSession();
 
+		$isOpenSearchForm = false;
 		if ($this->getRequest()->isPost()) {
 
 			$data = $this->params()->fromPost();
@@ -58,6 +59,7 @@ class CityController extends AbstractActionController {
 		if (!empty($sessionSearchCityFormData)) {
 			$form->setData($sessionSearchCityFormData);
 			$cities = $this->entityManager->getRepository(City::class)->findCityBySearchData($sessionSearchCityFormData);
+			$isOpenSearchForm = true;
 		} else {
 			$cities = $this->entityManager->getRepository(City::class)->getCityOrderByName();
 		}
@@ -69,6 +71,7 @@ class CityController extends AbstractActionController {
 			'paginator' => $paginator,
             'cityManager' => $this->cityManager,
 			'searchForm' => $form,
+			'isOpenSearchForm' => $isOpenSearchForm,
         ]);
     }
 

@@ -10,6 +10,13 @@ $searchSubmit = $form->get('searchSubmit')->setAttributes(['class' => 'btn btn-p
 $clearSubmit = $form->get('clearSubmit')->setAttributes(['class' => 'btn btn-primary']);
 $form->prepare();
 
+$openSearchFormStyle = '';
+if ($isOpenSearchForm) {
+	$openSearchFormStyle = ' style="display: block"';
+} else {
+	$openSearchFormStyle = ' style="display: none"';
+}
+
 ?>
 
 <div class="row">
@@ -17,19 +24,20 @@ $form->prepare();
 		<div id="searchForm">
 
 			<h1>Търсене</h1>
+			<div id="wrap-search-form" <?= $openSearchFormStyle ?> >
+				<?= $this->form()->openTag($form); ?>
 
-			<?= $this->form()->openTag($form); ?>
+				<div class="form-group">
+					<?= $this->formLabel($form->get('name')); ?>
+					<?= $this->formElement($form->get('name')); ?>
+					<?= $this->formElementErrors($form->get('name')); ?>
+				</div>
 
-			<div class="form-group">
-				<?= $this->formLabel($form->get('name')); ?>
-				<?= $this->formElement($form->get('name')); ?>
-				<?= $this->formElementErrors($form->get('name')); ?>
+				<?= $this->formElement($searchSubmit); ?>
+				<?= $this->formElement($clearSubmit); ?>
+
+				<?= $this->form()->closeTag(); ?>
 			</div>
-
-			<?= $this->formElement($searchSubmit); ?>
-			<?= $this->formElement($clearSubmit); ?>
-
-			<?= $this->form()->closeTag(); ?>
 		</div>
 	</div>
 </div>
@@ -40,7 +48,7 @@ $form->prepare();
 	$(document).ready(function () {
 		$("#searchForm h1").click(function () {
 			//slide up all the link lists
-			$("#searchForm form").slideUp();
+			$("#wrap-search-form").slideUp();
 			//slide down the link list below the h3 clicked - only if its closed
 			if (!$(this).next().is(":visible")) {
 				$(this).next().slideDown();

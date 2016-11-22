@@ -3,7 +3,14 @@ $this->headTitle('Управление на плащанията');
 $this->mainMenu()->setActiveItemId('orders');
 $this->pageBreadcrumbs()->setItems(['Плащания' => $this->url('orders')]);
 $form = $this->form;
-echo $this->partial('order/order/searchform', ['form' => $searchForm,]); ?><h1>Управление на плащанията</h1><p><a
+
+echo $this->partial('order/order/searchform', [
+	'form' => $searchForm,
+	'isOpenSearchForm'=> $isOpenSearchForm,
+]);
+?>
+
+	<h1>Управление на плащанията</h1><p><a
 		class="btn btn-default" href="    <?= $this->url('orders', ['action' => 'add']); ?>"> Добави плащане </a></p>
 	<table class="table table-striped">
 		<tr>

@@ -39,6 +39,7 @@ class ClientController extends AbstractActionController {
 
 		$sessionSearchClientFormData = $this->clientManager->getSearchDataFromSession();
 
+		$isOpenSearchForm = false;
 		if ($this->getRequest()->isPost()) {
 
 			$data = $this->params()->fromPost();
@@ -61,6 +62,7 @@ class ClientController extends AbstractActionController {
 		if (!empty($sessionSearchClientFormData)) {
 			$form->setData($sessionSearchClientFormData);
 			$clients = $this->entityManager->getRepository(Client::class)->findClientsBySearchData($sessionSearchClientFormData);
+			$isOpenSearchForm = true;
 		} else {
 			$clients = $this->entityManager->getRepository(Client::class)->getClientsOrderByName();
 		}
@@ -72,6 +74,7 @@ class ClientController extends AbstractActionController {
 			'paginator' => $paginator,
 			'clientManager' => $this->clientManager,
 			'searchForm' => $form,
+			'isOpenSearchForm' => $isOpenSearchForm,
 		]);
 	}
 

@@ -36,6 +36,12 @@ $searchSubmit = $form->get('searchSubmit')->setAttributes(['class' => 'btn btn-p
 $clearSubmit = $form->get('clearSubmit')->setAttributes(['class' => 'btn btn-primary']);
 $form->prepare();
 
+$openSearchFormStyle = '';
+if ($isOpenSearchForm) {
+	$openSearchFormStyle = ' style="display: block"';
+} else {
+	$openSearchFormStyle = ' style="display: none"';
+}
 ?>
 
 <div class="row">
@@ -43,65 +49,66 @@ $form->prepare();
 		<div id="searchForm">
 
 			<h1>Търсене</h1>
+			<div id="wrap-search-form" <?= $openSearchFormStyle ?> >
+				<?= $this->form()->openTag($form); ?>
 
-			<?= $this->form()->openTag($form); ?>
-
-			<div class="form-group">
-				<?= $this->formLabel($form->get('first_name')); ?>
-				<?= $this->formElement($form->get('first_name')); ?>
-				<?= $this->formElementErrors($form->get('first_name')); ?>
-			</div>
-
-			<div class="form-group">
-				<?= $this->formLabel($form->get('middle_name')); ?>
-				<?= $this->formElement($form->get('middle_name')); ?>
-				<?= $this->formElementErrors($form->get('middle_name')); ?>
-			</div>
-
-			<div class="form-group">
-				<?= $this->formLabel($form->get('last_name')); ?>
-				<?= $this->formElement($form->get('last_name')); ?>
-				<?= $this->formElementErrors($form->get('last_name')); ?>
-			</div>
-
-			<div class="form-group">
-				<?= $this->formLabel($form->get('phone')); ?>
-				<?= $this->formElement($form->get('phone')); ?>
-				<?= $this->formElementErrors($form->get('phone')); ?>
-			</div>
-
-			<div class="form-group">
-				<?= $this->formLabel($form->get('city_id')); ?>
-				<?= $this->formElement($form->get('city_id')); ?>
-				<?= $this->formElementErrors($form->get('city_id')); ?>
-			</div>
-
-			<div class="form-group">
-				<?= $this->formLabel($form->get('status')); ?>
-				<?= $this->formElement($form->get('status')); ?>
-				<?= $this->formElementErrors($form->get('status')); ?>
-			</div>
-
-			<div class="row">
-				<div class="form-group col-md-5">
-					<?= $this->formLabel($form->get('join_date_from')); ?>
-					<?= $this->formElement($form->get('join_date_from')); ?>
-					<?= $this->formElementErrors($form->get('join_date_from')); ?>
+				<div class="form-group">
+					<?= $this->formLabel($form->get('first_name')); ?>
+					<?= $this->formElement($form->get('first_name')); ?>
+					<?= $this->formElementErrors($form->get('first_name')); ?>
 				</div>
 
-				<div class="col-md-2 and">И</div>
-
-				<div class="form-group col-md-5">
-					<?= $this->formLabel($form->get('join_date_to')); ?>
-					<?= $this->formElement($form->get('join_date_to')); ?>
-					<?= $this->formElementErrors($form->get('join_date_to')); ?>
+				<div class="form-group">
+					<?= $this->formLabel($form->get('middle_name')); ?>
+					<?= $this->formElement($form->get('middle_name')); ?>
+					<?= $this->formElementErrors($form->get('middle_name')); ?>
 				</div>
+
+				<div class="form-group">
+					<?= $this->formLabel($form->get('last_name')); ?>
+					<?= $this->formElement($form->get('last_name')); ?>
+					<?= $this->formElementErrors($form->get('last_name')); ?>
+				</div>
+
+				<div class="form-group">
+					<?= $this->formLabel($form->get('phone')); ?>
+					<?= $this->formElement($form->get('phone')); ?>
+					<?= $this->formElementErrors($form->get('phone')); ?>
+				</div>
+
+				<div class="form-group">
+					<?= $this->formLabel($form->get('city_id')); ?>
+					<?= $this->formElement($form->get('city_id')); ?>
+					<?= $this->formElementErrors($form->get('city_id')); ?>
+				</div>
+
+				<div class="form-group">
+					<?= $this->formLabel($form->get('status')); ?>
+					<?= $this->formElement($form->get('status')); ?>
+					<?= $this->formElementErrors($form->get('status')); ?>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-md-5">
+						<?= $this->formLabel($form->get('join_date_from')); ?>
+						<?= $this->formElement($form->get('join_date_from')); ?>
+						<?= $this->formElementErrors($form->get('join_date_from')); ?>
+					</div>
+
+					<div class="col-md-2 and">И</div>
+
+					<div class="form-group col-md-5">
+						<?= $this->formLabel($form->get('join_date_to')); ?>
+						<?= $this->formElement($form->get('join_date_to')); ?>
+						<?= $this->formElementErrors($form->get('join_date_to')); ?>
+					</div>
+				</div>
+
+				<?= $this->formElement($searchSubmit); ?>
+				<?= $this->formElement($clearSubmit); ?>
+
+				<?= $this->form()->closeTag(); ?>
 			</div>
-
-			<?= $this->formElement($searchSubmit); ?>
-			<?= $this->formElement($clearSubmit); ?>
-
-			<?= $this->form()->closeTag(); ?>
 		</div>
 	</div>
 </div>
@@ -112,7 +119,7 @@ $form->prepare();
 	$(document).ready(function () {
 		$("#searchForm h1").click(function () {
 			//slide up all the link lists
-			$("#searchForm form").slideUp();
+			$("#wrap-search-form").slideUp();
 			//slide down the link list below the h3 clicked - only if its closed
 			if (!$(this).next().is(":visible")) {
 				$(this).next().slideDown();

@@ -31,6 +31,8 @@ class OrderController extends AbstractActionController {
     public function indexAction() {
         $form = new SearchForm($this->entityManager);
         $sessionSearchOrderFormData = $this->orderManager->getSearchDataFromSession();
+
+		$isOpenSearchForm = false;
         if ($this->getRequest()->isPost()) {
             $data = $this->params()->fromPost();
             if (isset($data['searchSubmit']) && $data['searchSubmit'] == 'Search') {
@@ -40,17 +42,27 @@ class OrderController extends AbstractActionController {
             }
             return $this->redirect()->toRoute('orders');
         }
+
         $page = (int)$this->params()->fromQuery('page', 1);
         $page = ($page < 1) ? 1 : $page;
+
         if (!empty($sessionSearchOrderFormData)) {
             $form->setData($sessionSearchOrderFormData);
             $orders = $this->entityManager->getRepository(Order::class)->findOrderBySearchData($sessionSearchOrderFormData);
+			$isOpenSearchForm = true;
         } else {
             $orders = $this->entityManager->getRepository(Order::class)->getOrderOrderByPaidAt();
         }
+
         $paginator = new ZendPaginator(new PageAdapter(new ORMPaginator($orders)));
         $paginator->setCurrentPageNumber($page)->setItemCountPerPage(20);
-        return new ViewModel(['paginator' => $paginator, 'orderManager' => $this->orderManager, 'searchForm' => $form,]);
+
+        return new ViewModel([
+        	'paginator' => $paginator,
+			'orderManager' => $this->orderManager,
+			'searchForm' => $form,
+			'isOpenSearchForm' => $isOpenSearchForm,
+		]);
     }
 
     public function addAction() {

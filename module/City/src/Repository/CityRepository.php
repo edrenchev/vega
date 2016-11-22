@@ -32,7 +32,7 @@ class CityRepository extends EntityRepository {
 
 		$queryBuilder->select('c')
 			->from(City::class, 'c')
-			->orderBy('c.name', 'DESC');
+			->orderBy('c.name', 'ASC');
 
 		$cities = $queryBuilder->getQuery();
 

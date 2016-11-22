@@ -1,6 +1,7 @@
 <?php
 namespace Order\Form;
 
+use Client\Entity\Client;
 use Order\Entity\Order;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
@@ -29,6 +30,13 @@ class OrderForm extends Form implements ObjectManagerAwareInterface {
 				'target_class' => 'Client\Entity\Client',
 				'property' => 'fullName',
 				'is_method' => true,
+				'find_method' => [
+					'name'   => 'findBy',
+					'params' => [
+						'criteria' => ['status' => Client::STATUS_ACTIVE],
+						'orderBy'  => ['firstName' => 'ASC'],
+					],
+				],
 				'label' => 'Клиент',
 				'display_empty_item' => true,
 				'empty_item_label' => '---',

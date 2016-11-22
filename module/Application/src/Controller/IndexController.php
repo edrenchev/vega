@@ -46,6 +46,7 @@ class IndexController extends AbstractActionController {
 		foreach ($clients as $client) {
 			$data = [
 				'client_id' => $client->getId(),
+				'city_id' => $client->getCityId()->getId(),
 				'mbps' => $client->getMbps(),
 				'price' => $client->getMonthlyPrice(),
 				'is_pay' => Order::IS_NOT_PAY,

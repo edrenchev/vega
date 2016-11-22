@@ -144,6 +144,7 @@ class ClientController extends AbstractActionController {
 				'mbps' => $client->getMbps(),
 				'monthly_price' => $client->getMonthlyPrice(),
 				'payday' => $client->getPayday(),
+				'status' => $client->getStatus(),
 				'join_date' => $client->getJoinDate(),
 				'notes' => $client->getNotes(),
 			];

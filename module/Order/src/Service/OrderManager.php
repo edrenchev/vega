@@ -1,6 +1,7 @@
 <?php
 namespace Order\Service;
 
+use Client\Entity\Client;
 use Order\Entity\Order;
 
 class OrderManager {
@@ -130,5 +131,63 @@ class OrderManager {
 
 	public function clearSearchDataInSession() {
 		unset($this->sessionSearchOrderForm->data);
+	}
+
+	public function addPeriodOrder($data) {
+
+		$paidAtFrom = new \DateTime($data['paid_at_from']);
+		$paidAtTo = new \DateTime($data['paid_at_to']);
+
+		if($paidAtFrom->getTimestamp() > $paidAtTo->getTimestamp()) {
+			return ["<strong>Дата на плащане от</strong> трябва да е <strong>></strong> от <strong>Дата на плащане до</strong> !!!"];
+		}
+
+		if($paidAtFrom->format('m') == $paidAtTo->format('m')) {
+			return ["<strong>Дата на плащане от</strong> и <strong>Дата на плащане до</strong> трябва да са различни месеци!!!"];
+		}
+
+		$client = $this->entityManager->getRepository(Client::class)->findOneBy(['id'=>$data['client_id']]);
+		$payday = $client->getPayDay();
+
+		$tmpStartDate = new \DateTime($paidAtFrom->format('Y') . '-' . $paidAtFrom->format('m') . '-' . $payday);
+		$tmpEndDate = new \DateTime($paidAtTo->format('Y') . '-' . $paidAtTo->format('m') . '-' . $payday);
+		$dates = [];
+		do {
+			$dates[] = $tmpStartDate->format('Y-m-d');
+			$tmpStartDate->add(new \DateInterval('P1M'));
+		}
+		while ($tmpStartDate->getTimestamp() <= $tmpEndDate->getTimestamp());
+
+		foreach ($dates as $date) {
+			$isClientPay = $this->entityManager->getRepository(Order::class)->isClientPay($data['client_id'], $date);
+			if ($isClientPay) {
+				$tmpDate = new \DateTime($date);
+				$firstDayOfMonth = $tmpDate->modify('first day of this month')->format('d.m.Y');
+				$lastDayOfMonth = $tmpDate->modify('last day of this month')->format('d.m.Y');
+				return ["Има въведено плащане за периода <strong>{$firstDayOfMonth} - {$lastDayOfMonth}</strong>"];
+			}
+		}
+
+		foreach ($dates as $date) {
+			$order = new Order();
+			$order->setClientId($this->entityManager->getRepository(\Client\Entity\Client::class)->findOneById($data['client_id']));
+			$order->setCityId($data['city_id']);
+			$order->setMbps($data['mbps']);
+			$order->setPrice($data['price']);
+			$order->setIsPay($data['is_pay']);
+			$order->setPaymentMethod($data['payment_method']);
+			$order->setPaidAt($date);
+			$order->setNote($data['note']);
+
+			$currentDate = date('Y-m-d H:i:s');
+			$order->setCreatedAt($currentDate);
+
+			$this->entityManager->persist($order);
+
+			$this->entityManager->flush();
+		}
+
+		return [];
+
 	}
 }

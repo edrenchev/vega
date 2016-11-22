@@ -1,0 +1,22 @@
+<?php
+$this->headTitle('Добави период на плащане');
+$this->mainMenu()->setActiveItemId('orders');
+$this->pageBreadcrumbs()->setItems([
+	'Плащания'=>$this->url('orders'),
+	'Добави период на плащане'=>$this->url('orders', ['action'=>'add-period-order'])
+]);
+$form = $this->form;
+
+echo '<h1>Добави период на плащане</h1>';
+
+if(!empty($errors)) {
+	echo '<p class="bg-danger" style="padding: 15px;">'.implode('<br/>', $errors).'</p>';
+}
+
+echo $this->partial('order/order/orderform', [
+	'form' => $form,
+	'submitLabel' => 'Създай',
+	'isEdit' => false,
+	'typeOrderForm' => 'multiple',
+]);
+

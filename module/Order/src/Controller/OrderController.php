@@ -144,4 +144,31 @@ class OrderController extends AbstractActionController {
         $this->orderManager->removeOrder($order);
         return $this->redirect()->toRoute('orders');
     }
+
+	public function addPeriodOrderAction() {
+
+		$form = new OrderForm($this->entityManager, 'multiple');
+		$clientId = (int)$this->params()->fromQuery('client_id', 0);
+		if ($clientId > 0) {
+			$client = $this->entityManager->getRepository(Client::class)->findOneBy(['id' => $clientId]);
+			$data = ['client_id' => $client->getId(), 'city_id' => $client->getCityId()->getId(), 'mbps' => $client->getMbps(), 'price' => $client->getMonthlyPrice(), 'is_pay' => Order::IS_PAY, 'payment_method' => Order::PAYMENT_METHOD_CASH, 'paid_at' => date('Y-m-d H:i:m'),];
+			$form->setData($data);
+		}
+
+		$res = [];
+		if ($this->getRequest()->isPost()) {
+			$data = $this->params()->fromPost();
+			$form->setData($data);
+			if ($form->isValid()) {
+				$data = $form->getData();
+				$res = $this->orderManager->addPeriodOrder($data);
+
+				if(empty($res)) return $this->redirect()->toRoute('orders');
+			}
+		}
+		return new ViewModel([
+			'form' => $form,
+			'errors' => $res,
+		]);
+	}
 }

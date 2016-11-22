@@ -10,8 +10,11 @@ echo $this->partial('order/order/searchform', [
 ]);
 ?>
 
-	<h1>Управление на плащанията</h1><p><a
-		class="btn btn-default" href="    <?= $this->url('orders', ['action' => 'add']); ?>"> Добави плащане </a></p>
+	<h1>Управление на плащанията</h1>
+	<p>
+		<a class="btn btn-default" href="    <?= $this->url('orders', ['action' => 'add']); ?>"> Добави плащане </a>
+		<a class="btn btn-default" href="    <?= $this->url('orders', ['action' => 'add-period-order']); ?>"> Добави период на плащане </a>
+	</p>
 	<table class="table table-striped">
 		<tr>
 			<th>Клиент</th>

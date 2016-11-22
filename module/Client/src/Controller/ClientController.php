@@ -44,9 +44,9 @@ class ClientController extends AbstractActionController {
 
 			$data = $this->params()->fromPost();
 
-			if (isset($data['searchSubmit']) && $data['searchSubmit'] == 'Search') {
+			if (isset($data['searchSubmit']) && !empty($data['searchSubmit'])) {
 				$this->clientManager->addSearchDataInSession($data);
-			} elseif (isset($data['clearSubmit']) && $data['clearSubmit'] == 'Clear') {
+			} elseif (isset($data['clearSubmit']) && !empty($data['clearSubmit'])) {
 				$this->clientManager->clearSearchDataInSession();
 			}
 

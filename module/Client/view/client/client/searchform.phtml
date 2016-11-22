@@ -33,7 +33,9 @@ $form->get('join_date_to')->setAttributes([
 
 
 $searchSubmit = $form->get('searchSubmit')->setAttributes(['class' => 'btn btn-primary']);
+$searchSubmit->setValue('Търси');
 $clearSubmit = $form->get('clearSubmit')->setAttributes(['class' => 'btn btn-primary']);
+$clearSubmit->setValue('Изчисти');
 $form->prepare();
 
 $openSearchFormStyle = '';

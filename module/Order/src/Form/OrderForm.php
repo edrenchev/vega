@@ -34,7 +34,7 @@ class OrderForm extends Form implements ObjectManagerAwareInterface {
 					'name'   => 'findBy',
 					'params' => [
 						'criteria' => ['status' => Client::STATUS_ACTIVE],
-						'orderBy'  => ['firstName' => 'ASC'],
+						'orderBy'  => ['firstName' => 'ASC', 'lastName' => 'ASC'],
 					],
 				],
 				'label' => 'Клиент',

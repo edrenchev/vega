@@ -174,6 +174,7 @@ class Order {
     }
 
     public function getPayAtBGFormat() {
+    	if($this->paidAt == '0000-00-00') return '';
         return date('d.m.Y', strtotime($this->paidAt));
     }
 

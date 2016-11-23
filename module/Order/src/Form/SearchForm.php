@@ -46,6 +46,13 @@ class SearchForm extends Form implements ObjectManagerAwareInterface {
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => 'City\Entity\City',
                 'property' => 'name',
+				'find_method' => [
+					'name'   => 'findBy',
+					'params' => [
+						'criteria' => [],
+						'orderBy'  => ['name' => 'ASC',],
+					],
+				],
                 'label' => 'Град',
                 'display_empty_item' => true,
                 'empty_item_label' => '---',

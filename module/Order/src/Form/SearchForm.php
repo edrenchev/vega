@@ -26,6 +26,13 @@ class SearchForm extends Form implements ObjectManagerAwareInterface {
                 'target_class' => 'Client\Entity\Client',
                 'property' => 'fullName',
                 'is_method' => true,
+				'find_method' => [
+					'name'   => 'findBy',
+					'params' => [
+						'criteria' => [],
+						'orderBy'  => ['firstName' => 'ASC', 'lastName' => 'ASC'],
+					],
+				],
                 'label' => 'Клиент',
                 'display_empty_item' => true,
                 'empty_item_label' => '---',

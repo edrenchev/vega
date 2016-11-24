@@ -47,7 +47,7 @@ class OrderRepository extends EntityRepository {
     public function getOrderOrderByPaidAt() {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
-        $queryBuilder->select('o')->from(Order::class, 'o')->orderBy('o.paidAt', 'DESC');
+        $queryBuilder->select('o')->from(Order::class, 'o')->addOrderBy('o.isPay', 'ASC')->addOrderBy('o.paidAt', 'DESC');
 		$orders = $queryBuilder->getQuery();
         return $orders;
     }

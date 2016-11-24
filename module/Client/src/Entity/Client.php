@@ -22,19 +22,9 @@ class Client {
     protected $id;
 
     /**
-     * @ORM\Column(name="first_name")
+     * @ORM\Column(name="name")
      */
-    protected $firstName;
-
-    /**
-     * @ORM\Column(name="middle_name")
-     */
-    protected $middleName;
-
-    /**
-     * @ORM\Column(name="last_name")
-     */
-    protected $lastName;
+    protected $name;
 
     /**
      * @ORM\Column(name="email")
@@ -110,43 +100,15 @@ class Client {
     /**
      * @return mixed
      */
-    public function getFirstName() {
-        return $this->firstName;
+    public function getName() {
+        return $this->name;
     }
 
     /**
-     * @param mixed $firstName
+     * @param mixed $name
      */
-    public function setFirstName($firstName) {
-        $this->firstName = $firstName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMiddleName() {
-        return $this->middleName;
-    }
-
-    /**
-     * @param mixed $middleName
-     */
-    public function setMiddleName($middleName) {
-        $this->middleName = $middleName;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastName() {
-        return $this->lastName;
-    }
-
-    /**
-     * @param mixed $lastName
-     */
-    public function setLastName($lastName) {
-        $this->lastName = $lastName;
+    public function setName($name) {
+        $this->name = $name;
     }
 
     /**
@@ -336,10 +298,4 @@ class Client {
         $this->createdAt = $createdAt;
     }
 
-    public function getFullName() {
-    	$fullName = $this->firstName;
-		if(!empty($this->middleName)) $fullName .= ' ' . $this->middleName;
-		$fullName .= ' ' . $this->lastName;
-		return $fullName;
-	}
 }

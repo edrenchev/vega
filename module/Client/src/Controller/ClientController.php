@@ -134,9 +134,7 @@ class ClientController extends AbstractActionController {
 			}
 		} else {
 			$data = [
-				'first_name' => $client->getFirstName(),
-				'middle_name' => $client->getMiddleName(),
-				'last_name' => $client->getLastName(),
+				'name' => $client->getName(),
 				'email' => $client->getEmail(),
 				'phone' => $client->getPhone(),
 				'city_id' => $client->getCityId(),

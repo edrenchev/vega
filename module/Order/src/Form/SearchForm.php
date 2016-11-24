@@ -24,13 +24,12 @@ class SearchForm extends Form implements ObjectManagerAwareInterface {
             'options' => [
                 'object_manager' => $this->getObjectManager(),
                 'target_class' => 'Client\Entity\Client',
-                'property' => 'fullName',
-                'is_method' => true,
+                'property' => 'name',
 				'find_method' => [
 					'name'   => 'findBy',
 					'params' => [
 						'criteria' => [],
-						'orderBy'  => ['firstName' => 'ASC', 'lastName' => 'ASC'],
+						'orderBy'  => ['name' => 'ASC',],
 					],
 				],
                 'label' => 'Клиент',

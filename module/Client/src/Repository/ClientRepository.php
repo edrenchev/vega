@@ -18,18 +18,11 @@ class ClientRepository extends EntityRepository {
             ->from(Client::class, 'c')
             ->where('1 = 1');
 
-        if (!empty($data['first_name'])) {
-            $queryBuilder->andWhere('c.firstName = :firstName');
-            $queryBuilder->setParameter('firstName', $data['first_name']);
+        if (!empty($data['name'])) {
+            $queryBuilder->andWhere('c.name LIKE :name');
+            $queryBuilder->setParameter('name', "%{$data['name']}%");
         }
-        if (!empty($data['middle_name'])) {
-            $queryBuilder->andWhere('c.middleName = :middleName');
-            $queryBuilder->setParameter('middleName', $data['middle_name']);
-        }
-        if (!empty($data['last_name'])) {
-            $queryBuilder->andWhere('c.lastName = :lastName');
-            $queryBuilder->setParameter('lastName', $data['last_name']);
-        }
+
         if (!empty($data['phone'])) {
             $queryBuilder->andWhere('c.phone = :phone');
             $queryBuilder->setParameter('phone', $data['phone']);
@@ -77,8 +70,7 @@ class ClientRepository extends EntityRepository {
 
 		$queryBuilder->select('c')
 			->from(Client::class, 'c')
-			->addOrderBy('c.firstName', 'ASC')
-			->addOrderBy('c.lastName', 'ASC');
+			->addOrderBy('c.name', 'ASC');
 
 		$clients = $queryBuilder->getQuery();
 

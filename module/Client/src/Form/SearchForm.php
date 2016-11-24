@@ -27,34 +27,12 @@ class SearchForm extends Form implements ObjectManagerAwareInterface {
 
         $this->add([
             'type' => 'text',
-            'name' => 'first_name',
+            'name' => 'name',
             'attributes' => [
-                'id' => 'firstName'
+                'id' => 'name'
             ],
             'options' => [
                 'label' => 'Име',
-            ],
-        ]);
-
-        $this->add([
-            'type' => 'text',
-            'name' => 'middle_name',
-            'attributes' => [
-                'id' => 'middleName'
-            ],
-            'options' => [
-                'label' => 'Презиме',
-            ],
-        ]);
-
-        $this->add([
-            'type' => 'text',
-            'name' => 'last_name',
-            'attributes' => [
-                'id' => 'lastName'
-            ],
-            'options' => [
-                'label' => 'Фамилия',
             ],
         ]);
 

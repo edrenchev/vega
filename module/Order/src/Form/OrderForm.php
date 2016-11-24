@@ -28,13 +28,12 @@ class OrderForm extends Form implements ObjectManagerAwareInterface {
 			'options' => [
 				'object_manager' => $this->getObjectManager(),
 				'target_class' => 'Client\Entity\Client',
-				'property' => 'fullName',
-				'is_method' => true,
+				'property' => 'name',
 				'find_method' => [
 					'name'   => 'findBy',
 					'params' => [
 						'criteria' => ['status' => Client::STATUS_ACTIVE],
-						'orderBy'  => ['firstName' => 'ASC', 'lastName' => 'ASC'],
+						'orderBy'  => ['name' => 'ASC',],
 					],
 				],
 				'label' => 'Клиент',

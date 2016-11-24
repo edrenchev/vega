@@ -27,9 +27,7 @@ class ClientManager {
     public function addNewClient($data) {
         // Create new Post entity.
         $client = new Client();
-        $client->setFirstName($data['first_name']);
-        $client->setMiddleName($data['middle_name']);
-        $client->setLastName($data['last_name']);
+        $client->setName($data['name']);
         $client->setEmail($data['email']);
         $client->setPhone($data['phone']);
 
@@ -51,9 +49,7 @@ class ClientManager {
     }
 
     public function updateClient(Client $client, $data) {
-        $client->setFirstName($data['first_name']);
-        $client->setMiddleName($data['middle_name']);
-        $client->setLastName($data['last_name']);
+        $client->setName($data['name']);
         $client->setEmail($data['email']);
         $client->setPhone($data['phone']);
 

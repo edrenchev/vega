@@ -1,16 +1,8 @@
 <?php
 
-$form->get('first_name')->setAttributes([
+$form->get('name')->setAttributes([
     'class'=>'form-control',
     'placeholder'=>'Иван'
-]);
-$form->get('middle_name')->setAttributes([
-    'class'=>'form-control',
-    'placeholder'=>'Иванов'
-]);
-$form->get('last_name')->setAttributes([
-    'class'=>'form-control',
-    'placeholder'=>'Иванов'
 ]);
 $form->get('email')->setAttributes([
     'class'=>'form-control',
@@ -65,21 +57,9 @@ $form->prepare();
         <?= $this->form()->openTag($form); ?>
 
         <div class="form-group">
-            <?= $this->formLabel($form->get('first_name')); ?>
-            <?= $this->formElement($form->get('first_name')); ?>
-            <?= $this->formElementErrors($form->get('first_name')); ?>
-        </div>
-
-        <div class="form-group">
-            <?= $this->formLabel($form->get('middle_name')); ?>
-            <?= $this->formElement($form->get('middle_name')); ?>
-            <?= $this->formElementErrors($form->get('middle_name')); ?>
-        </div>
-
-        <div class="form-group">
-            <?= $this->formLabel($form->get('last_name')); ?>
-            <?= $this->formElement($form->get('last_name')); ?>
-            <?= $this->formElementErrors($form->get('last_name')); ?>
+            <?= $this->formLabel($form->get('name')); ?>
+            <?= $this->formElement($form->get('name')); ?>
+            <?= $this->formElementErrors($form->get('name')); ?>
         </div>
 
         <div class="form-group">

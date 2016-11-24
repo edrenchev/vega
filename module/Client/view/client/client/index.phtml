@@ -28,7 +28,6 @@ echo $this->partial('client/client/searchform', [
 
     <tr>
         <th>Име</th>
-        <th>Фамилия</th>
         <th>Телефон</th>
         <th>Град</th>
         <th>Mbps</th>
@@ -41,8 +40,7 @@ echo $this->partial('client/client/searchform', [
     <?php foreach ($this->paginator as $client): ?>
 
         <tr>
-            <td><?= $this->escapeHtml($client->getFirstName()); ?></td>
-            <td><?= $this->escapeHtml($client->getLastName()); ?></td>
+            <td><?= $this->escapeHtml($client->getName()); ?></td>
             <td><?= $this->escapeHtml($client->getPhone()); ?></td>
             <td><?= $this->escapeHtml($client->getCityId()->getName()); ?></td>
             <td><?= $this->escapeHtml($client->getMbps()); ?></td>

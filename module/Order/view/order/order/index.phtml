@@ -26,7 +26,7 @@ echo $this->partial('order/order/searchform', [
 			<th>Действия</th>
 		</tr> <?php foreach ($this->paginator as $order): ?>
 			<tr>
-				<td><?= $this->escapeHtml($order->getClientId()->getFullName()); ?></td>
+				<td><?= $this->escapeHtml($order->getClientId()->getName()); ?></td>
 				<td><?= $this->escapeHtml($order->getMbps()); ?></td>
 				<td><?= $this->escapeHtml($order->getPrice()); ?></td>
 				<td><?= $this->escapeHtml($order->getIsPayAsString($order->getIsPay())); ?></td>

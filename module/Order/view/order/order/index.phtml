@@ -25,7 +25,7 @@ echo $this->partial('order/order/searchform', [
 			<th>Дата на плащане</th>
 			<th>Действия</th>
 		</tr> <?php foreach ($this->paginator as $order): ?>
-			<tr>
+			<tr  <?php if($order->getIsPay() == \Order\Entity\Order::IS_NOT_PAY) echo 'class="danger"'; ?>>
 				<td><?= $this->escapeHtml($order->getClientId()->getName()); ?></td>
 				<td><?= $this->escapeHtml($order->getMbps()); ?></td>
 				<td><?= $this->escapeHtml($order->getPrice()); ?></td>

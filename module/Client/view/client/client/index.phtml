@@ -2,15 +2,15 @@
 $this->headTitle('Управление на клиенти');
 $this->mainMenu()->setActiveItemId('clients');
 $this->pageBreadcrumbs()->setItems([
-    'Клиенти' => $this->url('clients')
+	'Клиенти' => $this->url('clients')
 ]);
 
 
 $form = $this->form;
 
 echo $this->partial('client/client/searchform', [
-    'form' => $searchForm,
-    'isOpenSearchForm'=> $isOpenSearchForm,
+	'form' => $searchForm,
+	'isOpenSearchForm' => $isOpenSearchForm,
 ]);
 
 ?>
@@ -18,64 +18,67 @@ echo $this->partial('client/client/searchform', [
 <h1>Управление на клиенти</h1>
 
 <p>
-    <a class="btn btn-default" href="
+	<a class="btn btn-default" href="
     <?= $this->url('clients', ['action' => 'add']); ?>">
-        Добави клиент
-    </a>
+		Добави клиент
+	</a>
 </p>
 
 <table class="table table-striped">
 
-    <tr>
-        <th>Име</th>
-        <th>Телефон</th>
-        <th>Град</th>
-        <th>Mbps</th>
-        <th>Месечна такса</th>
-        <th>Статус</th>
-        <th>Дата на вкл</th>
-        <th style="width: 391px;">Действия</th>
-    </tr>
+	<tr>
+		<th>Име</th>
+		<th>Телефон</th>
+		<th>Град</th>
+		<th>Mbps</th>
+		<th>Месечна такса</th>
+		<th>Статус</th>
+		<th>Дата на вкл</th>
+		<th style="width: 391px;">Действия</th>
+	</tr>
 
-    <?php foreach ($this->paginator as $client): ?>
+	<?php foreach ($this->paginator as $client): ?>
 
-        <tr>
-            <td><?= $this->escapeHtml($client->getName()); ?></td>
-            <td><?= $this->escapeHtml($client->getPhone()); ?></td>
-            <td><?= $this->escapeHtml($client->getCityId()->getName()); ?></td>
-            <td><?= $this->escapeHtml($client->getMbps()); ?></td>
-            <td><?= $this->escapeHtml($client->getMonthlyPrice()); ?></td>
-            <td><?= $this->escapeHtml($client->getStatusAsString()); ?></td>
-            <td><?= $this->escapeHtml($client->getJoinDateBGFormat()); ?></td>
-            <td>
-                <a class="btn btn-info" href="<?= $this->url('clients',
-                    ['action' => 'edit', 'id' => $client->getId()]); ?>">
-                    <span class="glyphicon glyphicon-pencil"></span> Редактирай
-                </a>
-                <a class="btn btn-danger" data-action="delete" href="<?= $this->url('clients',
-                    ['action' => 'delete', 'id' => $client->getId()]); ?>">
-                    <span class="glyphicon glyphicon-remove"></span> Изтрий
-                </a>
-                <a class="btn btn-success" href="<?= $this->url('orders',
-                    ['action' => 'add'], ['query'=>['client_id'=>$client->getId()]]); ?>">
-                    <span class="glyphicon glyphicon-plus"></span> Добави плащане
-                </a>
-            </td>
-        </tr>
+		<tr>
+			<td>
+				<a href="<?= $this->url('orders', ['action' => 'history', 'id' => $client->getId()]); ?>">
+					<?= $this->escapeHtml($client->getName()); ?>
+				</a>
+			</td>
+			<td><?= $this->escapeHtml($client->getPhone()); ?></td>
+			<td><?= $this->escapeHtml($client->getCityId()->getName()); ?></td>
+			<td><?= $this->escapeHtml($client->getMbps()); ?></td>
+			<td><?= $this->escapeHtml($client->getMonthlyPrice()); ?></td>
+			<td><?= $this->escapeHtml($client->getStatusAsString()); ?></td>
+			<td><?= $this->escapeHtml($client->getJoinDateBGFormat()); ?></td>
+			<td>
+				<a class="btn btn-info" href="<?= $this->url('clients',
+					['action' => 'edit', 'id' => $client->getId()]); ?>">
+					<span class="glyphicon glyphicon-pencil"></span> Редактирай
+				</a>
+				<a class="btn btn-danger" data-action="delete" href="<?= $this->url('clients',
+					['action' => 'delete', 'id' => $client->getId()]); ?>">
+					<span class="glyphicon glyphicon-remove"></span> Изтрий
+				</a>
+				<a class="btn btn-success" href="<?= $this->url('orders',
+					['action' => 'add'], ['query' => ['client_id' => $client->getId()]]); ?>">
+					<span class="glyphicon glyphicon-plus"></span> Добави плащане
+				</a>
+			</td>
+		</tr>
 
-    <?php endforeach; ?>
+	<?php endforeach; ?>
 
 </table>
 
 
-
 <?= $this->paginationControl(
 // The paginator object:
-    $this->paginator,
-    // The scrolling style:
-    'sliding',
-    // The partial to use to render the control:
-    'client/client/paginator',
-    // The route to link to when a user clicks a control link:
-    ['route' => 'clients']
+	$this->paginator,
+	// The scrolling style:
+	'sliding',
+	// The partial to use to render the control:
+	'client/client/paginator',
+	// The route to link to when a user clicks a control link:
+	['route' => 'clients']
 ) ?>

@@ -1,0 +1,67 @@
+<?php
+$this->headTitle('История на плащания');
+$this->mainMenu()->setActiveItemId('orders');
+$this->pageBreadcrumbs()->setItems([
+	'Плащания' => $this->url('orders'),
+	'История на плащания'=>$this->url('orders', ['action'=>'history', 'id'=>$client->getId()])
+]);
+
+
+?>
+
+	<h1 style="text-align: center">История на плащания - <?= $this->escapeHtml($client->getName()); ?></h1>
+
+	<table class="table history">
+		<?php foreach ($this->paginator as $order): ?>
+			<tr <?=($order->getIsPay() == \Order\Entity\Order::IS_PAY) ? 'class="success"' : 'class="danger"'; ?>>
+				<td>
+					<table class="table table-striped">
+						<tr>
+							<td>Mbps</td>
+							<td><?= $this->escapeHtml($order->getMbps()); ?></td>
+						</tr>
+						<tr>
+							<td>Цена</td>
+							<td><?= $this->escapeHtml($order->getPrice()); ?></td>
+						</tr>
+						<tr>
+							<td>Платил</td>
+							<td><?= $this->escapeHtml($order->getIsPayAsString($order->getIsPay())); ?></td>
+						</tr>
+						<tr>
+							<td>Метод на плащане</td>
+							<td><?= $this->escapeHtml($order->getPaymentMethodAsString($order->getPaymentMethod())); ?></td>
+						</tr>
+						<tr>
+							<td>Дата на плащане</td>
+							<td><?= $this->escapeHtml($order->getPayAtBGFormat()); ?></td>
+						</tr>
+						<tr>
+							<td>Бележка</td>
+							<td><?= $this->escapeHtml($order->getNote()); ?></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<tr>
+				<td></td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+<?= $this->paginationControl(
+// The paginator object:
+	$this->paginator,
+// The scrolling style:
+	'sliding',
+// The partial to use to render the control:
+	'order/order/history-paginator',
+// The route to link to when a user clicks a control link:
+	[
+		'route' => 'orders',
+		'params' => [
+			'action' => 'history',
+			'id' => $client->getId(),
+		]
+	])
+?>

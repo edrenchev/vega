@@ -91,3 +91,10 @@ form ul li {
 #pagination {
     text-align: center;
 }
+
+table.history .table{
+    margin-bottom: 0;
+}
+table.history .table tr td:first-child {
+    /*width: 200px;*/
+}

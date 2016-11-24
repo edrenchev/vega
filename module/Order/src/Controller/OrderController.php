@@ -171,4 +171,32 @@ class OrderController extends AbstractActionController {
 			'errors' => $res,
 		]);
 	}
+
+
+
+	public function historyAction() {
+		$clientId = (int)$this->params()->fromRoute('id', -1);
+
+		if ($clientId < 0) {
+			$this->getResponse()->setStatusCode(404);
+			return;
+		}
+
+		$client = $this->entityManager->getRepository(Client::class)->findOneBy(['id'=>$clientId]);
+
+		$orders = $this->entityManager->getRepository(Order::class)->getClientOrderHistory($clientId);
+
+		$paginator = new ZendPaginator(new PageAdapter(new ORMPaginator($orders)));
+
+		$page = (int)$this->params()->fromQuery('page', 1);
+		$page = ($page < 1) ? 1 : $page;
+
+		$paginator->setCurrentPageNumber($page)->setItemCountPerPage(12);
+
+		return new ViewModel([
+			'paginator' => $paginator,
+			'client' => $client,
+		]);
+
+	}
 }

@@ -48,8 +48,8 @@ class OrderRepository extends EntityRepository {
         $entityManager = $this->getEntityManager();
         $queryBuilder = $entityManager->createQueryBuilder();
         $queryBuilder->select('o')->from(Order::class, 'o')->orderBy('o.paidAt', 'DESC');
-        $clients = $queryBuilder->getQuery();
-        return $clients;
+		$orders = $queryBuilder->getQuery();
+        return $orders;
     }
 
     public function isClientPay($clientId, $date) {
@@ -72,5 +72,13 @@ class OrderRepository extends EntityRepository {
 		if(empty($orders)) return false;
 
 		return true;
+	}
+
+	public function getClientOrderHistory($clientId) {
+		$entityManager = $this->getEntityManager();
+		$queryBuilder = $entityManager->createQueryBuilder();
+		$queryBuilder->select('o')->from(Order::class, 'o')->andWhere("o.clientId = :clientId")->orderBy('o.paidAt', 'DESC')->setParameter('clientId', $clientId);
+		$orders = $queryBuilder->getQuery();
+		return $orders;
 	}
 }

@@ -1,14 +1,14 @@
 <?php
-ini_set('default_charset', 'utf-8');
 
 use Zend\Mvc\Application;
 use Zend\Stdlib\ArrayUtils;
 
-if ($_SERVER['APPLICATION_ENV'] === 'development') {
+if ($_SERVER['APPLICATION_ENV'] == 'development') {
     error_reporting(E_ALL);
     ini_set("display_errors", 1);
 }
 
+date_default_timezone_set('Europe/Sofia');
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.

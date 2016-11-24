@@ -1,3 +1,5 @@
+SetEnv PHPRC /home/drenche/vega.drenchev.com/php.ini
+
 Options +FollowSymLinks -MultiViews
 RewriteEngine On
 RewriteBase /

@@ -77,7 +77,7 @@ class OrderRepository extends EntityRepository {
 	public function getClientOrderHistory($clientId) {
 		$entityManager = $this->getEntityManager();
 		$queryBuilder = $entityManager->createQueryBuilder();
-		$queryBuilder->select('o')->from(Order::class, 'o')->andWhere("o.clientId = :clientId")->orderBy('o.paidAt', 'DESC')->setParameter('clientId', $clientId);
+		$queryBuilder->select('o')->from(Order::class, 'o')->where("o.clientId = :clientId")->orderBy('o.paidAt', 'DESC')->setParameter('clientId', $clientId);
 		$orders = $queryBuilder->getQuery();
 		return $orders;
 	}

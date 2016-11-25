@@ -1,6 +1,7 @@
 <?php
 namespace Client\Form;
 
+use Zend\Form\Element\Csrf;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
@@ -138,6 +139,18 @@ class ClientForm extends Form implements ObjectManagerAwareInterface {
                 'label' => 'Дата на включване',
             ],
         ]);
+
+
+		$this->add([
+			'type' => Csrf::class,
+			'name' => 'client_form_csrf',
+			'options' => [
+				'csrf_options' => [
+					'timeout' => 600
+				]
+			],
+		]);
+
 
 		$this->add([
 			'type' => 'textarea',

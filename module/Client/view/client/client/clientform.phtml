@@ -55,6 +55,7 @@ $form->prepare();
 <div class="row">
     <div class="col-md-6">
         <?= $this->form()->openTag($form); ?>
+        <?= $this->formElement($form->get('client_form_csrf')); ?>
 
         <div class="form-group">
             <?= $this->formLabel($form->get('name')); ?>

@@ -3,6 +3,7 @@ namespace Order\Form;
 
 use Client\Entity\Client;
 use Order\Entity\Order;
+use Zend\Form\Element\Csrf;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 use DoctrineModule\Persistence\ObjectManagerAwareInterface;
@@ -128,6 +129,16 @@ class OrderForm extends Form implements ObjectManagerAwareInterface {
 				],
 			]);
 		}
+
+		$this->add([
+			'type' => Csrf::class,
+			'name' => 'order_form_csrf',
+			'options' => [
+				'csrf_options' => [
+					'timeout' => 600
+				]
+			],
+		]);
 
 		$this->add([
 			'type' => 'textarea',

@@ -1,6 +1,7 @@
 <?php
 namespace City\Form;
 
+use Zend\Form\Element\Csrf;
 use Zend\Form\Form;
 use Zend\InputFilter\InputFilter;
 
@@ -37,6 +38,16 @@ class CityForm extends Form {
                 'value' => 'Create',
                 'id' => 'submitbutton',
             ],
+        ]);
+
+        $this->add([
+			'type' => Csrf::class,
+			'name' => 'city_form_csrf',
+			'options' => [
+				'csrf_options' => [
+					'timeout' => 600
+				]
+			],
         ]);
 
     }

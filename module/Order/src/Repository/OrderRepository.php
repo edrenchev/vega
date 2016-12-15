@@ -24,7 +24,7 @@ class OrderRepository extends EntityRepository {
             $queryBuilder->andWhere('o.price = :price');
             $queryBuilder->setParameter('price', $data['price']);
         }
-        if (!empty($data['is_pay'])) {
+        if ($data['is_pay'] != '') {
             $queryBuilder->andWhere('o.isPay = :isPay');
             $queryBuilder->setParameter('isPay', $data['is_pay']);
         }
